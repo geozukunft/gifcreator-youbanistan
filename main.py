@@ -15,6 +15,27 @@ airport_name = "Youbanistan (BAN)"
 departure_time = "Now"
 flight_status = "Boarding Now"
 
+flights = [
+    {
+        "flight_number": "ABC123",
+        "destination": "Youbanistan (BAN)",
+        "departure_time": "Now",
+        "status": "Boarding Now",
+    },
+    {
+        "flight_number": "DEF456",
+        "destination": "Aeroville (ARV)",
+        "departure_time": "12:30",
+        "status": "On Time",
+    },
+    {
+        "flight_number": "GHI789",
+        "destination": "Foggy City (FOG)",
+        "departure_time": "13:00",
+        "status": "Delayed",
+    },
+]
+
 # Define the grid properties
 num_rows = 8
 row_height = height // num_rows
@@ -44,9 +65,10 @@ for i in range(20):
         draw.rectangle((0, row_height * j + font_size + 5, width, row_height * (j + 1)), fill=row_color)
 
         # Draw the flight information in each column
-        draw.text((10, row_height * j + font_size * 2 + 5), "ABC123", fill=fg_color)
-        draw.text((90, row_height * j + font_size * 2 + 5), airport_name, fill=fg_color)
-        draw.text((210, row_height * j + font_size * 2 + 5), departure_time, fill=fg_color)
+        flight = flights[j % len(flights)]
+        draw.text((10, row_height * j + font_size * 2 + 5), flight["flight_number"], fill=fg_color)
+        draw.text((90, row_height * j + font_size * 2 + 5), flight["destination"], fill=fg_color)
+        draw.text((210, row_height * j + font_size * 2 + 5), flight["departure_time"], fill=fg_color)
 
         # Highlight the row for the flight to Youbanistan (BAN)
         if airport_name.startswith("Youbanistan"):
@@ -56,9 +78,9 @@ for i in range(20):
 
         # Draw the flight status in the last column
         if airport_name.startswith("Youbanistan") and i % 2 == 0:
-            draw.text((290, row_height * j + font_size * 2 + 5), flight_status, fill=highlight_color)
+            draw.text((290, row_height * j + font_size * 2 + 5), flight["status"], fill=highlight_color)
         else:
-            draw.text((290, row_height * j + font_size * 2 + 5), "On Time", fill=fg_color)
+            draw.text((290, row_height * j + font_size * 2 + 5), flight["status"], fill=fg_color)
 
     # Add the image to the list of frames
     frames.append(im)
